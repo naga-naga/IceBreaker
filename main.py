@@ -100,6 +100,10 @@ def handle_message(event):
         name_dict[event.source.user_id] = name
         # メッセージ作成
         message = "はい，{}さん".format(name)
+
+    elif user_message == "bot":
+        message = stamper()
+        return
     
     line_bot_api.reply_message(
             event.reply_token,
@@ -231,6 +235,38 @@ def display_latest_news():
             ranking_list.append(list(item.absolute_links)[0])
     
     return ranking_list[0]
+
+
+def stamper():
+    randnum = random.randint(1,100)
+
+    if randnum == 1:
+        message = "激レアスタンプ!"
+        stamp_messages = StickerSendMessage(
+            package_id = 1,
+            sticker_id = 2
+        )
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=message)
+        )
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            stamp_messages
+        )
+    else:
+        send_messages = StickerSendMessage(
+            package_id = 1,
+            sticker_id = 1
+        )
+        line_bot_api.reply_message(
+            event.reply_token,
+            send_messages
+        )    
+
+    return
+
 
 if __name__ == "__main__":
 #    app.run()
