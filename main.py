@@ -39,13 +39,13 @@ def callback():
     return 'OK'
 
 user_list = []
+num_list = []
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     if not event.source.user_id in user_list:
         user_list.append(event.source.user_id):
     if event.message.text == "番号":
-        num_list = []
         profile = line_bot_api.get_profile(event.source.user_id)
         message = profile.display_name
         while num in num_list:
