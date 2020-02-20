@@ -38,30 +38,33 @@ def callback():
 
     return 'OK'
 
+user_list = []
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    if not event.source.user_id in user_list:
+        user_list.append(event.source.user_id):
     if event.message.text == "番号":
+        num_list = []
         profile = line_bot_api.get_profile(event.source.user_id)
         message = profile.display_name
-        num = random.randint(0,10)
-        message += ' : ' + str(num)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=message)
-        )        
-    else:
+        while num in num_list:
+            num = random.randint(0,len(user_list))
+        num_list.append(num)
+        message += ' : ' + str(num) 
+    elif event.message.text == "話題":
         #message = event.message.text
         #profile = line_bot_api.get_profile(event.source.user_id)
         #message = profile.display_name
-        message = createMessage()
-        line_bot_api.reply_message(
+        message = createRandomMessage() # bot が話題を生成する
+    
+    line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message))
 
 
 # 送信するメッセージを作成
-def createMessage():
+def createRandomMessage():
     # メッセージ
     message = ""
 
