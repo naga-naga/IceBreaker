@@ -54,13 +54,7 @@ def handle_message(event):
         user_list.append(event.source.user_id)
     
     if user_message == "順番":
-        random.shuffle(user_list)
-        num = 0
-        for id in user_list:
-            num += 1
-            profile = line_bot_api.get_profile(id)
-            message += profile.display_name
-            message += ' : ' + str(num) + "\n"
+        message = createOrder()
         
     elif user_message == "話題":
         #message = event.message.text
@@ -74,6 +68,19 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=message))
 
+def createOrder():
+    message = ""
+    random.shuffle(user_list)
+        num = 0
+        for id in user_list:
+            num += 1
+            profile = line_bot_api.get_profile(id)
+            message += profile.display_name
+            message += ' : ' + str(num)
+            if num == len(user_list):
+                pass
+            else:
+                message += "\n"
 
 # 話題を作成
 def createRandomMessage():
