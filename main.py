@@ -68,8 +68,20 @@ def handle_message(event):
         message = createSelfIntroductionMessage()
 
     elif user_message == "最新ニュース":
-        message = display_latest_news()
 
+        # URL のリストが返ってくる
+        msg_list = display_latest_news()
+        send_messages = []
+
+        for message in msg_list:
+            send_messages.append(TextSendMessage(text=message))
+        
+        line_bot_api.reply_message(
+            event.reply_token,
+            send_messages
+        )
+
+    # bot を退会させる言葉
     elif user_message == "さよならbot":
         messages = ["そんな...ひどい", "所詮私はその程度の存在だったのね...!", "うわあああん！"]
         send_messages = []
@@ -105,6 +117,11 @@ def handle_message(event):
         message = stamper()
         return
     
+    # あだ名の一覧を表示
+    elif user_message == "あだ名":
+        message = getNickname()
+
+    # テキストメッセージを送信
     line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message))
@@ -249,6 +266,20 @@ def stamper():
 
     return
 
+
+# 登録したあだ名を返す
+def getNickname():
+    id_list = list(name_dict.keys())
+    message = ""
+    for i in range(len(id_list)):
+        message += line_bot_api.get_profile(id_list[i]).display_name
+        message += " : "
+        message += name_dict[id_list[i]]
+        if i == len(id_list) - 1:
+            pass
+        else:
+            message += "\n"
+    return message
 
 if __name__ == "__main__":
 #    app.run()
