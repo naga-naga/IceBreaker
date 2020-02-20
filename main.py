@@ -8,7 +8,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage, VideoSendMessage, StickerSendMessage, AudioSendMessage, JoinEvent
+    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage, VideoSendMessage, StickerSendMessage, AudioSendMessage, JoinEvent, MemberJoinedEvent
 )
 import os
 import random
@@ -41,6 +41,7 @@ def callback():
 user_list = [] # しゃべったユーザ
 num_list = [0]  # 割り当てた番号
 
+# ユーザがテキストメッセージを送った時の処理
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 
@@ -71,11 +72,21 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=message))
 
+# botがグループに参加したときの処理
 @handler.add(JoinEvent)
 def handle_join(event):
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="私はbotである．")
+    )
+
+# 新しくユーザが参加したときの処理
+@handler.add(MemberJoinedEvent)
+def handle_member_join(event):
+    # new_user_id = event.joined.members
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text="オメーも自己紹介するんだよ！\nほら！早く！")
     )
 
 def createOrder():
