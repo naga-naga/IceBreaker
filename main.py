@@ -43,10 +43,13 @@ def callback():
 #user_list = [] # しゃべったユーザ
 name_dict = {}
 
+#Syabettakaisuu
+say_counter_dict = {}
+
+count_num = 0
 # ユーザがテキストメッセージを送った時の処理
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-
     # ユーザが入力したメッセージ
     user_message = event.message.text
 
@@ -54,9 +57,29 @@ def handle_message(event):
     if not event.source.user_id in user_list:
         user_list.append(event.source.user_id)
     """
+
     
+    count_num += 1
+
+    #kaiwanihaittenaihitonihanasikakeru
+    if count_num >= 30:
+        silence = min(say_counter_dict)
+        message = "オタクくんさぁ...ゲームばっかやってないで会話に参加しようよ!"
+        message = name_dict[silence] + "さんの好きな食べ物はなんですか?"
+        count_num = 0
+        line_bot_api.reply_message(
+            event.reply_token,
+            message
+        )
+    
+    #kaiwakaunntomodoujiniokonau
     if not event.source.user_id in name_dict.keys():
         name_dict[event.source.user_id] = line_bot_api.get_profile(event.source.user_id).display_name
+        say_counter_dict[event.source.user_id] = 1
+    else:
+        say_counter_dict[event.source.user_id] += 1
+
+
     
     if user_message == "順番":
         message = createOrder()
