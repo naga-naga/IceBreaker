@@ -73,6 +73,7 @@ def handle_message(event):
         return
     elif user_message == "bokete":
         message = boketer()
+        
     
     line_bot_api.reply_message(
             event.reply_token,
