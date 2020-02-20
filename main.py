@@ -39,19 +39,23 @@ def callback():
     return 'OK'
 
 user_list = []
-num_list = []
+num_list = [0]
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     if not event.source.user_id in user_list:
-        user_list.append(event.source.user_id):
-    if event.message.text == "番号":
-        profile = line_bot_api.get_profile(event.source.user_id)
-        message = profile.display_name
-        while num in num_list:
-            num = random.randint(0,len(user_list))
-        num_list.append(num)
-        message += ' : ' + str(num) 
+        user_list.append(event.source.user_id)
+    if event.message.text == "順番":
+        random.shuffle(user_list)
+        for id in user_list:
+            profile = line_bot_api.get_profile(id)
+            message = profile.display_name
+            message += ' : ' + str(num) 
+
+            line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=message))
+        
     elif event.message.text == "話題":
         #message = event.message.text
         #profile = line_bot_api.get_profile(event.source.user_id)
