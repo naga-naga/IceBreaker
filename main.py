@@ -64,6 +64,8 @@ def handle_message(event):
         if hasattr(event.source, "group_id"):
             line_bot_api.leave_group(event.source.group_id)
         return
+    elif user_message == "bokete":
+        message = boketer()
     
     line_bot_api.reply_message(
             event.reply_token,
@@ -128,6 +130,14 @@ def createSelfIntroductionMessage():
 
     return message
 
+def boketer():
+    image_message = "https://icebreaker2020.herokuapp.com/static/images/no" + str(random.randint(1,12)) +".jpg",
+    message = ImageSendMessage(
+            original_content_url = image_message,
+            preview_image_url = image_message
+        )
+
+    return message
 
 if __name__ == "__main__":
 #    app.run()
