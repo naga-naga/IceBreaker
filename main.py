@@ -40,7 +40,6 @@ def callback():
 
     return 'OK'
 
-#user_list = [] # しゃべったユーザ
 name_dict = {}
 
 # ユーザがテキストメッセージを送った時の処理
@@ -49,11 +48,6 @@ def handle_message(event):
 
     # ユーザが入力したメッセージ
     user_message = event.message.text
-
-    """
-    if not event.source.user_id in user_list:
-        user_list.append(event.source.user_id)
-    """
     
     if not event.source.user_id in name_dict.keys():
         name_dict[event.source.user_id] = line_bot_api.get_profile(event.source.user_id).display_name
@@ -68,7 +62,18 @@ def handle_message(event):
         message = createSelfIntroductionMessage()
 
     elif user_message == "最新ニュース":
-        message = display_latest_news()
+        # URL のリストが返ってくる
+        msg_list = display_latest_news()
+        send_messages = []
+
+        for message in msg_list:
+            send_messages.append(TextSendMessage(text=message))
+        
+        line_bot_api.reply_message(
+            event.reply_token,
+            send_messages
+        )
+
 
     elif user_message == "さよならbot":
         messages = ["そんな...ひどい", "所詮私はその程度の存在だったのね...!", "うわあああん！"]
@@ -102,24 +107,34 @@ def handle_message(event):
         message = "はい，{}さん".format(name)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     elif user_message == "bot":
         message = stamper()
         return
 =======
     #あだ名リストを表示
+=======
+    # あだ名リストを表示
+>>>>>>> 3282c8079a99e7d09eedd02616fa80708aa22b4f
     elif user_message == "あだ名":
         id_list = list(name_dict.keys())
+        message = ""
         for i in range(len(id_list)):
-            message += id_list[i] 
+            message += line_bot_api.get_profile(id_list[i]).display_name
             message += " : "
-            message += name_dict[name_dict[i]]
+            message += name_dict[id_list[i]]
             if i == len(id_list) - 1:
                 pass
             else:
                 message += "\n"
+<<<<<<< HEAD
         return message
 >>>>>>> 09973505ff21fe04581ee411116d2322bc21f3fe
     
+=======
+
+    # テキストメッセージを送信
+>>>>>>> 3282c8079a99e7d09eedd02616fa80708aa22b4f
     line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message))
@@ -214,7 +229,7 @@ def boketer():
         )
     return message
 
-# 最近のニュースの URL を返す
+# 最近のニュースの URL のリストを返す
 def display_latest_news():
     # 返す URL のリスト
     msg_list = []
@@ -231,7 +246,7 @@ def display_latest_news():
     for i in range(5):
         msg_list.append(link_element[i].get("href"))
 
-    return str(msg_list)
+    return msg_list
 
 
 def stamper():
