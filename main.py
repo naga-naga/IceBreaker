@@ -41,6 +41,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 #    message = event.message.text
+# I'm Nagacy
     message = "test" 
     line_bot_api.reply_message(
         event.reply_token,
