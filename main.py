@@ -8,12 +8,11 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage, VideoSendMessage, StickerSendMessage, AudioSendMessage, JoinEvent, MemberJoinedEvent
+    MessageEvent, TextMessage, ImageMessage, TextSendMessage, StickerMessage, ImageSendMessage, VideoSendMessage, StickerSendMessage, AudioSendMessage, JoinEvent, MemberJoinedEvent
 )
 import os
 import random
 import bs4, requests
-from requests_html import HTMLSession
 
 app = Flask(__name__)
 
@@ -40,7 +39,6 @@ def callback():
 
     return 'OK'
 
-#user_list = [] # しゃべったユーザ
 name_dict = {}
 
 #Syabettakaisuu
@@ -52,6 +50,7 @@ count_num = 0
 def handle_message(event):
     # ユーザが入力したメッセージ
     user_message = event.message.text
+
 
     """
     if not event.source.user_id in user_list:
@@ -143,11 +142,31 @@ def handle_message(event):
     # あだ名の一覧を表示
     elif user_message == "あだ名":
         message = getNickname()
+    
+
+    if event.message.type == "image":
+        message = "てすと：画像を送ったね？"
 
     # テキストメッセージを送信
     line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message))
+
+# ユーザが画像を送信したときの処理
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_image_message(event):
+    # テキストメッセージを送信
+    line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="もしかして画像送信した？"))
+
+# ユーザがスタンプを送信したときの処理
+@handler.add(MessageEvent, message=StickerMessage)
+def handle_sticker_message(event):
+    # テキストメッセージを送信
+    line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="もしかしてスタンプ送信した？"))
 
 # botがグループに参加したときの処理
 @handler.add(JoinEvent)
@@ -239,7 +258,7 @@ def boketer():
         )
     return message
 
-# 最近のニュースの URL を返す
+# 最近のニュースの URL のリストを返す
 def display_latest_news():
     # 返す URL のリスト
     msg_list = []
@@ -256,7 +275,7 @@ def display_latest_news():
     for i in range(5):
         msg_list.append(link_element[i].get("href"))
 
-    return str(msg_list)
+    return msg_list
 
 # スタンプを送信
 def stamper(event):
