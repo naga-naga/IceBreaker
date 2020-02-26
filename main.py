@@ -123,13 +123,27 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=message))
 
+
 # ユーザが画像を送信したときの処理
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
-    # テキストメッセージを送信
+    message_id = event.message.id
+    image_url = "https://icebreaker2020.herokuapp.com/static/userSendImage/{}.jpg".format(message_id)
+    # 画像のバイナリデータを取得
+    message_content = line_bot_api.get_message_content(message_id)
+    with open(image_url, "wb") as f:
+        # バイナリを1024バイトずつ書き込む
+        for chunk in message_content.iter_content():
+            f.write(chunk)
+
+    # 画像をそのまま返す
     line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="もしかして画像送信した？"))
+            ImageSendMessage(
+                original_content_url = image_url,
+                preview_image_url = image_url
+            ))
+
 
 # ユーザがスタンプを送信したときの処理
 @handler.add(MessageEvent, message=StickerMessage)
@@ -138,6 +152,7 @@ def handle_sticker_message(event):
     line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="もしかしてスタンプ送信した？"))
+
 
 # botがグループに参加したときの処理
 @handler.add(JoinEvent)
@@ -149,6 +164,7 @@ def handle_join(event):
         event.reply_token,
         TextSendMessage(text=message)
     )
+
 
 # 新しくユーザが参加したときの処理
 @handler.add(MemberJoinedEvent)
