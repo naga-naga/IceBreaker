@@ -134,7 +134,7 @@ def createOrder():
     for k in name_dict.keys():
         id_list = k
     #random.shuffle(id_list)
-    return str(id_list[0])
+    return str(id_list)
 
     for i in range(len(id_list)):
         message += name_dict[id_list[i]]
