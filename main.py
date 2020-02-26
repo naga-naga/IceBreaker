@@ -51,6 +51,8 @@ def handle_message(event):
     # ユーザが入力したメッセージ
     user_message = event.message.text
 
+    # 関数内で宣言しないとダメ？
+    count_num = 0
     count_num += 1
 
     #kaiwanihaittenaihitonihanasikakeru
@@ -157,6 +159,7 @@ def handle_image_message(event):
         for chunk in message_content.iter_content():
             f.write(chunk)
 
+    """
     # 画像をそのまま返す
     line_bot_api.reply_message(
             event.reply_token,
@@ -164,6 +167,13 @@ def handle_image_message(event):
                 original_content_url = image_url,
                 preview_image_url = image_url
             ))
+    """
+    
+    # メッセージIDを返してみる
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=message_id)
+    )
 
 
 # ユーザがスタンプを送信したときの処理
