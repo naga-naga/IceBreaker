@@ -43,6 +43,10 @@ num_list = [0]  # 割り当てた番号
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+
+    # 送信するメッセージ
+    message = ""
+
     # ユーザが入力したメッセージ
     user_message = event.message.text
 
@@ -55,7 +59,7 @@ def handle_message(event):
         for id in user_list:
             num += 1
             profile = line_bot_api.get_profile(id)
-            message = profile.display_name
+            message += profile.display_name
             message += ' : ' + str(num) + "\n"
         
     elif user_message == "話題":
