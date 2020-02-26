@@ -58,6 +58,12 @@ def handle_message(event):
 
     elif user_message == "自己紹介":
         message = createSelfIntroductionMessage()
+
+    elif user_message == "さよならbot":
+        line_bot_api.reply_message(event.reply_token, TextSendMessage("そんな...ひどい...！"))
+        if hasattr(event.source, "group_id"):
+            line_bot_api.leave_group(event.source.group_id)
+        return
     
     line_bot_api.reply_message(
             event.reply_token,
