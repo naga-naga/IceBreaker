@@ -38,7 +38,8 @@ def callback():
 
     return 'OK'
 
-user_list = [] # しゃべったユーザ
+#user_list = [] # しゃべったユーザ
+name_dict = {}
 
 # ユーザがテキストメッセージを送った時の処理
 @handler.add(MessageEvent, message=TextMessage)
@@ -47,8 +48,13 @@ def handle_message(event):
     # ユーザが入力したメッセージ
     user_message = event.message.text
 
+    """
     if not event.source.user_id in user_list:
         user_list.append(event.source.user_id)
+    """
+    
+    if not event.source.user_id in name_dict.keys():
+        name_dict[event.source.user_id] = line_bot_api.get_profile(event.source.user_id).display_name
     
     if user_message == "順番":
         message = createOrder()
@@ -87,6 +93,8 @@ def handle_message(event):
     elif user_message.endswith("と呼んで"):
         # 「と呼んで」の部分を削除
         message = user_message.strip("と呼んで")
+        # name_dict にあだ名を登録
+        name_dict[event.source.user_id] = message
     
     line_bot_api.reply_message(
             event.reply_token,
@@ -124,14 +132,17 @@ def handle_member_join(event):
 # 順番を作る
 def createOrder():
     message = ""
-    random.shuffle(user_list)
-    num = 0
-    for id in user_list:
-        num += 1
-        profile = line_bot_api.get_profile(id)
-        message += profile.display_name
-        message += ' : ' + str(num)
-        if num == len(user_list):
+    #random.shuffle(user_list)
+    id_list = name_dict.keys()
+    random.shuffle(id_list)
+    return str(id_list[0])
+
+    for i in range(len(id_list)):
+        #profile = line_bot_api.get_profile(id)
+        #message += profile.display_name
+        message += name_dict[id_list[i]]
+        message += ' : ' + str(i + 1)
+        if i == len(id_list) - 1:
             pass
         else:
             message += "\n"
