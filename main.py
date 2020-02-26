@@ -137,9 +137,7 @@ def handle_message(event):
     # あだ名の一覧を表示
     elif user_message == "あだ名":
         message = getNickname()
-    
-    elif user_message == "URLテスト":
-        message = str(os.listdir(os.path.join(".", "static", "userSendImages")))
+
 
     # テキストメッセージを送信
     line_bot_api.reply_message(
@@ -151,16 +149,14 @@ def handle_message(event):
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
     message_id = event.message.id
-    #image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
-    image_url = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
-    print(image_url) # printしたらどこに出力されるんだろうか
+    image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
 
     # ディレクトリが存在しなければ作成
     os.makedirs(os.path.join("static", "userSendImages"), exist_ok=True)
 
     # 画像のバイナリデータを取得
     message_content = line_bot_api.get_message_content(message_id)
-    with open(image_url, "wb") as f:
+    with open(Path("static/userSendImages/{}.jpg".format(message_id)).absolute(), "wb") as f:
         # バイナリを1024バイトずつ書き込む
         for chunk in message_content.iter_content():
             f.write(chunk)
@@ -169,8 +165,8 @@ def handle_image_message(event):
     line_bot_api.reply_message(
             event.reply_token,
             ImageSendMessage(
-                original_content_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id),
-                preview_image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
+                original_content_url = image_url,
+                preview_image_url = image_url
             ))
 
 
