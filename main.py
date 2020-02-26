@@ -40,7 +40,6 @@ def callback():
 
     return 'OK'
 
-#user_list = [] # しゃべったユーザ
 name_dict = {}
 
 # ユーザがテキストメッセージを送った時の処理
@@ -117,7 +116,7 @@ def handle_message(event):
         id_list = list(name_dict.keys())
         message = ""
         for i in range(len(id_list)):
-            message += event.source.display_name
+            #message += event.source.display_name
             message += " : "
             message += name_dict[i]
             if i == len(id_list) - 1:
