@@ -133,6 +133,7 @@ def createOrder():
     #random.shuffle(user_list)
     id_list = name_dict.keys()
     random.shuffle(id_list)
+    return str(id_list[0])
 
     for i in range(len(id_list)):
         #profile = line_bot_api.get_profile(id)
