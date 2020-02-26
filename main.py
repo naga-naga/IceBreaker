@@ -114,7 +114,7 @@ def handle_member_join(event):
     message = "あなたの名前は" + disp_name + "ですね？"
     """
 
-    message = "タイムスタンプ：" + event.timestamp
+    message = "タイムスタンプ：" + str(event.timestamp)
 
     line_bot_api.reply_message(
         event.reply_token,
