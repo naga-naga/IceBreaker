@@ -42,7 +42,7 @@ def callback():
 
 name_dict = {}
 
-#Syabettakaisuu
+# 喋った回数
 say_counter_dict = {}
 count_num = 0
 
@@ -56,7 +56,7 @@ def handle_message(event):
     count_num = 0
     count_num += 1
 
-    #kaiwanihaittenaihitonihanasikakeru
+    # 会話に入ってない人に話しかける
     if count_num >= 30:
         silence = min(say_counter_dict)
         message = "オタクくんさぁ...ゲームばっかやってないで会話に参加しようよ!"
@@ -67,7 +67,7 @@ def handle_message(event):
             message
         )
     
-    #kaiwakaunntomodoujiniokonau
+    # 会話カウントも同時に行う
     if not event.source.user_id in name_dict.keys():
         name_dict[event.source.user_id] = line_bot_api.get_profile(event.source.user_id).display_name
         say_counter_dict[event.source.user_id] = 1
@@ -137,6 +137,18 @@ def handle_message(event):
     # あだ名の一覧を表示
     elif user_message == "あだ名":
         message = getNickname()
+    
+    # コマンドのヘルプを表示
+    elif user_message == "help":
+        message = """「話題」：話題を生成します．
+        「自己紹介」：自己紹介で喋る内容を提案します．
+        「順番」：喋る順番を提案します．
+        「○○と呼んで」：あだ名を登録します．これ以降botはあなたをあだ名で呼びます．
+        「bokete」：写真を表示します．ボケてください．
+        「最新ニュース」：ニュースを5件表示します．
+        「あだ名」：登録したあだ名の一覧を表示します．
+        「さよならbot」：botを退会させます．
+        """
 
 
     # テキストメッセージを送信
