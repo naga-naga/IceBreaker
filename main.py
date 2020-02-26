@@ -39,7 +39,6 @@ def callback():
     return 'OK'
 
 user_list = [] # しゃべったユーザ
-num_list = [0]  # 割り当てた番号
 
 # ユーザがテキストメッセージを送った時の処理
 @handler.add(MessageEvent, message=TextMessage)
@@ -114,7 +113,7 @@ def handle_member_join(event):
     message = "あなたの名前は" + disp_name + "ですね？"
     """
 
-    message = "タイムスタンプ：" + str(event.timestamp)
+    message = "タイムスタンプ：" + event.source.groupId
 
     line_bot_api.reply_message(
         event.reply_token,
