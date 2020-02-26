@@ -71,8 +71,10 @@ def handle_message(event):
         if hasattr(event.source, "group_id"):
             line_bot_api.leave_group(event.source.group_id)
         return
+    
     elif user_message == "bokete":
         message = boketer()
+        return
     
     line_bot_api.reply_message(
             event.reply_token,
@@ -109,6 +111,7 @@ def handle_member_join(event):
         TextSendMessage(text="さあ自己紹介をしろ！")
     )
 
+# 順番を作る
 def createOrder():
     message = ""
     random.shuffle(user_list)
@@ -161,14 +164,13 @@ def createSelfIntroductionMessage():
 
     return message
 
+# boketeの画像を送信
 def boketer():
     image_message = "https://icebreaker2020.herokuapp.com/static/images/no" + str(random.randint(1,12)) + ".jpg",
-    message = ImageSendMessage(
+    ImageSendMessage(
             original_content_url = image_message,
             preview_image_url = image_message
         )
-
-    return message
 
 if __name__ == "__main__":
 #    app.run()
