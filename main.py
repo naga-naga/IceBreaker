@@ -13,7 +13,6 @@ from linebot.models import (
 import os
 import random
 import bs4, requests
-from requests_html import HTMLSession
 
 app = Flask(__name__)
 
@@ -50,11 +49,6 @@ def handle_message(event):
     # ユーザが入力したメッセージ
     user_message = event.message.text
 
-    """
-    if not event.source.user_id in user_list:
-        user_list.append(event.source.user_id)
-    """
-    
     if not event.source.user_id in name_dict.keys():
         name_dict[event.source.user_id] = line_bot_api.get_profile(event.source.user_id).display_name
     
@@ -216,7 +210,7 @@ def boketer():
         )
     return message
 
-# 最近のニュースの URL を返す
+# 最近のニュースの URL のリストを返す
 def display_latest_news():
     # 返す URL のリスト
     msg_list = []
@@ -233,7 +227,7 @@ def display_latest_news():
     for i in range(5):
         msg_list.append(link_element[i].get("href"))
 
-    return str(msg_list)
+    return msg_list
 
 # スタンプを送信
 def stamper(event):
