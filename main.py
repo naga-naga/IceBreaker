@@ -8,7 +8,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage, VideoSendMessage, StickerSendMessage, AudioSendMessage, JoinEvent, MemberJoinedEvent
+    MessageEvent, TextMessage, ImageMessage, TextSendMessage, StickerMessage, ImageSendMessage, VideoSendMessage, StickerSendMessage, AudioSendMessage, JoinEvent, MemberJoinedEvent
 )
 import os
 import random
@@ -124,12 +124,20 @@ def handle_message(event):
             TextSendMessage(text=message))
 
 # ユーザが画像を送信したときの処理
-@handler.add(MessageEvent)
+@handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
     # テキストメッセージを送信
     line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="もしかして画像送信した？"))
+
+# ユーザがスタンプを送信したときの処理
+@handler.add(MessageEvent, message=StickerMessage)
+def handle_sticker_message(event):
+    # テキストメッセージを送信
+    line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="もしかしてスタンプ送信した？"))
 
 # botがグループに参加したときの処理
 @handler.add(JoinEvent)
