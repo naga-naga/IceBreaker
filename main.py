@@ -74,7 +74,7 @@ def handle_message(event):
             send_messages
         )
 
-
+    # bot を退会させる言葉
     elif user_message == "さよならbot":
         messages = ["そんな...ひどい", "所詮私はその程度の存在だったのね...!", "うわあああん！"]
         send_messages = []
@@ -106,18 +106,9 @@ def handle_message(event):
         # メッセージ作成
         message = "はい，{}さん".format(name)
 
-    # あだ名リストを表示
+    # あだ名の一覧を表示
     elif user_message == "あだ名":
-        id_list = list(name_dict.keys())
-        message = ""
-        for i in range(len(id_list)):
-            message += line_bot_api.get_profile(id_list[i]).display_name
-            message += " : "
-            message += name_dict[id_list[i]]
-            if i == len(id_list) - 1:
-                pass
-            else:
-                message += "\n"
+        message = getNickname()
 
     # テキストメッセージを送信
     line_bot_api.reply_message(
@@ -232,6 +223,20 @@ def display_latest_news():
         msg_list.append(link_element[i].get("href"))
 
     return msg_list
+
+# 登録したあだ名を返す
+def getNickname():
+    id_list = list(name_dict.keys())
+    message = ""
+    for i in range(len(id_list)):
+        message += line_bot_api.get_profile(id_list[i]).display_name
+        message += " : "
+        message += name_dict[id_list[i]]
+        if i == len(id_list) - 1:
+            pass
+        else:
+            message += "\n"
+    return message
 
 if __name__ == "__main__":
 #    app.run()
