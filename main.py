@@ -45,23 +45,20 @@ def handle_message(event):
         profile = line_bot_api.get_profile(event.source.user_id)
         message = profile.display_name
         num = random.randint(0,10)
-        message += ' : ' + str(num)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=message)
-        )        
-    else:
+        message += ' : ' + str(num) 
+    elif event.message.text == "話題":
         #message = event.message.text
         #profile = line_bot_api.get_profile(event.source.user_id)
         #message = profile.display_name
-        message = createMessage()
-        line_bot_api.reply_message(
+        message = createRandomMessage() # bot が話題を生成する
+    
+    line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message))
 
 
 # 送信するメッセージを作成
-def createMessage():
+def createRandomMessage():
     # メッセージ
     message = ""
 
