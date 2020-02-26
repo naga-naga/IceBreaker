@@ -150,8 +150,10 @@ def handle_message(event):
 # ユーザが画像を送信したときの処理
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
-    message_id = event.message.id
+    message_id = str(event.message.id)
     image_url = "https://icebreaker2020.herokuapp.com/static/userSendImage/{}.jpg".format(message_id)
+
+    """
     # 画像のバイナリデータを取得
     message_content = line_bot_api.get_message_content(message_id)
     with open(image_url, "wb") as f:
@@ -159,7 +161,6 @@ def handle_image_message(event):
         for chunk in message_content.iter_content():
             f.write(chunk)
 
-    """
     # 画像をそのまま返す
     line_bot_api.reply_message(
             event.reply_token,
