@@ -112,13 +112,14 @@ def handle_message(event):
         # メッセージ作成
         message = "はい，{}さん".format(name)
 
-    #あだ名リストを表示
+    # あだ名リストを表示
     elif user_message == "あだ名":
         id_list = list(name_dict.keys())
+        message = ""
         for i in range(len(id_list)):
-            message += id_list[i] 
+            message += event.source.display_name
             message += " : "
-            message += name_dict[name_dict[i]]
+            message += name_dict[i]
             if i == len(id_list) - 1:
                 pass
             else:
