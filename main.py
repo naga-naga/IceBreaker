@@ -39,7 +39,6 @@ def callback():
 
     return 'OK'
 
-#user_list = [] # しゃべったユーザ
 name_dict = {}
 
 # ユーザがテキストメッセージを送った時の処理
@@ -114,6 +113,10 @@ def handle_message(event):
     # あだ名の一覧を表示
     elif user_message == "あだ名":
         message = getNickname()
+    
+
+    if event.message.type == "image":
+        message = "てすと：画像を送ったね？"
 
     # テキストメッセージを送信
     line_bot_api.reply_message(
