@@ -169,8 +169,8 @@ def handle_image_message(event):
     line_bot_api.reply_message(
             event.reply_token,
             ImageSendMessage(
-                original_content_url = image_url,
-                preview_image_url = str(image_url)
+                original_content_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id),
+                preview_image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
             ))
 
 
