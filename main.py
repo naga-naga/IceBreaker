@@ -45,7 +45,7 @@ def handle_message(event):
         profile = line_bot_api.get_profile(event.source.user_id)
         message = profile.display_name
         num = random.randint(0,10)
-        message += message + ' : ' + str(num)
+        message += ' : ' + str(num)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message)
