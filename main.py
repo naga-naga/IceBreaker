@@ -130,8 +130,8 @@ def handle_message(event):
         return
     
     elif user_message.endswith("と呼んで"):
-        # 「と呼んで」の部分を削除
-        name = user_message.strip("と呼んで")
+        # 「と呼んで」の部分（後ろ4文字）を削除
+        name = user_message[:-4]
         # name_dict にあだ名を登録
         name_dict[event.source.user_id] = name
         # メッセージ作成
