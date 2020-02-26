@@ -64,6 +64,7 @@ def handle_message(event):
 
     elif user_message == "自己紹介":
         message = createSelfIntroductionMessage()
+
     elif user_message == "最新ニュース":
         message = display_latest_news()
 
@@ -195,6 +196,7 @@ def boketer():
 # 最近のニュースの URL を返す
 def display_latest_news():
     message = "https://news.yahoo.co.jp/pickup/6352292"
+    return message
 
 if __name__ == "__main__":
 #    app.run()
