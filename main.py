@@ -100,8 +100,7 @@ def handle_join(event):
 # 新しくユーザが参加したときの処理
 @handler.add(MemberJoinedEvent)
 def handle_member_join(event):
-    # TODO: 参加メンバーの名前を取得したい
-
+    
     # 新しく入ったメンバーのIDを取得
     new_user_id = event.joined.members[0].user_id
     # ユーザのプロフィールを取得
@@ -109,7 +108,7 @@ def handle_member_join(event):
     # ディスプレイネーム取得
     disp_name = profile.display_name
     # 送るメッセージ
-    message = "あなたの名前は" + disp_name + "ですね？"
+    message = "いらっしゃい" + disp_name + "さん！\nさあ，自己紹介をするんだ！"
 
     line_bot_api.reply_message(
         event.reply_token,
