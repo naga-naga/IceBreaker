@@ -90,9 +90,11 @@ def handle_message(event):
     
     elif user_message.endswith("と呼んで"):
         # 「と呼んで」の部分を削除
-        message = user_message.strip("と呼んで")
+        name = user_message.strip("と呼んで")
         # name_dict にあだ名を登録
-        name_dict[event.source.user_id] = message
+        name_dict[event.source.user_id] = name
+        # メッセージ作成
+        message = "はい，{}さん".format(name)
     
     line_bot_api.reply_message(
             event.reply_token,
@@ -132,7 +134,6 @@ def createOrder():
     message = ""
     id_list = list(name_dict.keys())
     random.shuffle(id_list)
-    #return str(id_list)
 
     for i in range(len(id_list)):
         message += name_dict[id_list[i]]
