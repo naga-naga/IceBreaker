@@ -73,10 +73,13 @@ def handle_message(event):
         return
     
     elif user_message == "bokete":
+        # 送信する写真を取得
         message = boketer()
+        # テキストと写真を送信する
+        send_messages = [TextSendMessage(text="この写真でボケて！"), message]
         line_bot_api.reply_message(
             event.reply_token,
-            message
+            send_messages
         )
         return
     
