@@ -41,11 +41,32 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     #message = event.message.text
-    profile = line_bot_api.get_profile(event.source.user_id)
-    message = profile.display_name
+    #profile = line_bot_api.get_profile(event.source.user_id)
+    #message = profile.display_name
+    message = createMessage()
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=message))
+
+# 送信するメッセージを作成
+def createMessage():
+    # メッセージ
+    message = ""
+
+    # 誰の
+    who = ["私", "友人", "先輩", "家族", "兄弟", "後輩"]
+
+    # いつ
+    when = ["昨日", "一昨日", "先週", "先月", "半年くらい前", "去年", "高校時代", "中学時代", "小学生時代", "子供時代"]
+
+    # どんな話
+    what = ["笑える", "泣ける", "悲しい", "すべらない", "どうでもいい", "気になる", "ためになる", "ショックな", "ビッグな", "情けない", "怖い", "恋の", "恥ずかしい"]
+
+    # メッセージ作成
+    # 誰のいつのどんな話
+    message = "{}の{}の{}話".format(who[random.randint(0, len(who))], when[random.randint(0, len(when))], what[random.randint(0, len(what))])
+
+    return message
 
 
 if __name__ == "__main__":
