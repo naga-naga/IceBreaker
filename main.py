@@ -38,32 +38,39 @@ def callback():
 
     return 'OK'
 
-user_list = []
-num_list = []
+user_list = [] # しゃべったユーザ
+num_list = [0]  # 割り当てた番号
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    # ユーザが入力したメッセージ
+    user_message = event.message.text
+
     if not event.source.user_id in user_list:
-        user_list.append(event.source.user_id):
-    if event.message.text == "番号":
+        user_list.append(event.source.user_id)
+    
+    if user_message == "番号":
         profile = line_bot_api.get_profile(event.source.user_id)
         message = profile.display_name
+        num = 0 # すでに出た番号を記録しておくためのもの
         while num in num_list:
-            num = random.randint(0,len(user_list))
+            num = random.randint(1, len(user_list))
         num_list.append(num)
         message += ' : ' + str(num) 
-    elif event.message.text == "話題":
+    elif user_message == "話題":
         #message = event.message.text
         #profile = line_bot_api.get_profile(event.source.user_id)
         #message = profile.display_name
         message = createRandomMessage() # bot が話題を生成する
+    elif user_message == "自己紹介":
+        message = createSelfIntroductionMessage()
     
     line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message))
 
 
-# 送信するメッセージを作成
+# 話題を作成
 def createRandomMessage():
     # メッセージ
     message = ""
@@ -82,6 +89,24 @@ def createRandomMessage():
     message = "{}の{}の{}話".format(who[random.randint(0, len(who) - 1)], when[random.randint(0, len(when) - 1)], what[random.randint(0, len(what) - 1)])
 
     return message
+
+
+# 自己紹介の内容を作成
+def createSelfIntroductionMessage():
+    # メッセージ
+    message = "名前は？"
+
+    # 普通な話題
+    wadai = ["出身は？", "趣味は？", "部活について", "これからやりたいことは？", "あだ名は？", "好きな食べ物は？", "誕生日は？"]
+
+    # 九工大特化な話題
+    wadai_kyutech = ["twitterやってる？", "好きなアニメは？", "視力は？", "好きなゲームは？", "受験の選択科目は？", "何類？何クラス？"]
+
+    # メッセージ作成
+    message += "\n" + wadai[random.randint(0, len(wadai) - 1)] + "\n" + wadai_kyutech[random.randint(0, len(wadai_kyutech) - 1)]
+
+    return message
+
 
 if __name__ == "__main__":
 #    app.run()
