@@ -76,6 +76,7 @@ def createOrder():
             pass
         else:
             message += "\n"
+    return message
 
 # 話題を作成
 def createRandomMessage():
