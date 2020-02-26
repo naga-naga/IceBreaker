@@ -82,6 +82,9 @@ def handle_message(event):
         )
         return
     
+    elif user_message.endswith("と呼んで"):
+        message = "やだ"
+    
     line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=message))
@@ -100,7 +103,7 @@ def handle_join(event):
 # 新しくユーザが参加したときの処理
 @handler.add(MemberJoinedEvent)
 def handle_member_join(event):
-    
+
     # 新しく入ったメンバーのIDを取得
     new_user_id = event.joined.members[0].user_id
     # ユーザのプロフィールを取得
