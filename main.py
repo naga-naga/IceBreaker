@@ -162,7 +162,7 @@ def createSelfIntroductionMessage():
     return message
 
 def boketer():
-    image_message = "https://icebreaker2020.herokuapp.com/static/images/no" + str(random.randint(1,12)) +".jpg",
+    image_message = "https://icebreaker2020.herokuapp.com/static/images/no" + str(random.randint(1,12)) + ".jpg",
     message = ImageSendMessage(
             original_content_url = image_message,
             preview_image_url = image_message
