@@ -202,8 +202,8 @@ def display_latest_news():
     result.raise_for_status()
     # HTML で扱えるようにする？
     soup = bs4.BeautifulSoup(result.text, "html.parser")
-    # リンクの要素 一つだけ返す
-    link_element = soup.select_one(".que_3 > a")
+    # リンクの要素 一つだけ返す メモ：.que_3 > 
+    link_element = soup.select_one("a")
     # URL を返す
     message = link_element[0].get("href")
     return message
