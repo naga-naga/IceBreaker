@@ -52,19 +52,27 @@ def handle_message(event):
     # ユーザが入力したメッセージ
     user_message = event.message.text
 
-    # 関数内で宣言しないとダメ？
-    count_num = 0
+    # 複数のことを言わせたいときに使う
+    msg_list = []
+    send_messages = []
+
+    global count_num
     count_num += 1
 
     # 会話に入ってない人に話しかける
     if count_num >= 30:
         silence = min(say_counter_dict)
-        message = "オタクくんさぁ...ゲームばっかやってないで会話に参加しようよ!"
-        message = name_dict[silence] + "さんの好きな食べ物はなんですか?"
+        msg_list.append("@{}".format(name_dict[silence]))
+        msg_list.append("オタクくんさぁ...ゲームばっかやってないで会話に参加しようよ!")
+        msg_list.append(name_dict[silence] + "さんの好きな食べ物はなんですか?")
+
+        for message in msg_list:
+            send_messages = TextSendMessage(text=message)
+
         count_num = 0
         line_bot_api.reply_message(
             event.reply_token,
-            message
+            send_messages
         )
     
     # 会話カウントも同時に行う
