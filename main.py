@@ -83,7 +83,8 @@ def handle_message(event):
         return
     
     elif user_message.endswith("と呼んで"):
-        message = "やだ"
+        # 「と呼んで」の部分を削除
+        message = user_message.strip("と呼んで")
     
     line_bot_api.reply_message(
             event.reply_token,
