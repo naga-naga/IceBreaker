@@ -43,21 +43,14 @@ name_dict = {}
 
 #Syabettakaisuu
 say_counter_dict = {}
-
 count_num = 0
+
 # ユーザがテキストメッセージを送った時の処理
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # ユーザが入力したメッセージ
     user_message = event.message.text
 
-
-    """
-    if not event.source.user_id in user_list:
-        user_list.append(event.source.user_id)
-    """
-
-    
     count_num += 1
 
     #kaiwanihaittenaihitonihanasikakeru
@@ -79,7 +72,6 @@ def handle_message(event):
         say_counter_dict[event.source.user_id] += 1
 
 
-    
     if user_message == "順番":
         message = createOrder()
 
