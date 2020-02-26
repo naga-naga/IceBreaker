@@ -61,7 +61,13 @@ def handle_message(event):
         message = createSelfIntroductionMessage()
 
     elif user_message == "さよならbot":
-        line_bot_api.reply_message(event.reply_token, TextSendMessage("そんな...ひどい...！"))
+        messages = ["そんな...ひどい", "所詮私はその程度の存在だったのね...!", "うわあああん！"]
+        send_messages = []
+
+        for message in messages:
+            send_messages.append(TextSendMessage(text=message))
+        
+        line_bot_api.reply_message(event.reply_token, send_messages)
         if hasattr(event.source, "group_id"):
             line_bot_api.leave_group(event.source.group_id)
         return
@@ -84,6 +90,7 @@ def handle_join(event):
 # 新しくユーザが参加したときの処理
 @handler.add(MemberJoinedEvent)
 def handle_member_join(event):
+    # TODO: 参加メンバーの名前を取得したい
     """
     # 新しく入ったメンバーのIDを取得
     new_user_id = event.joined.members.source.userId
