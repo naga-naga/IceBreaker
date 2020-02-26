@@ -68,7 +68,18 @@ def handle_message(event):
         message = createSelfIntroductionMessage()
 
     elif user_message == "最新ニュース":
-        message = display_latest_news()
+        # URL のリストが返ってくる
+        msg_list = display_latest_news()
+        send_messages = []
+
+        for message in msg_list:
+            send_messages.append(TextSendMessage(text=message))
+        
+        line_bot_api.reply_message(
+            event.reply_token,
+            send_messages
+        )
+
 
     elif user_message == "さよならbot":
         messages = ["そんな...ひどい", "所詮私はその程度の存在だったのね...!", "うわあああん！"]
@@ -195,7 +206,7 @@ def boketer():
         )
     return message
 
-# 最近のニュースの URL を返す
+# 最近のニュースの URL のリストを返す
 def display_latest_news():
     # 返す URL のリスト
     msg_list = []
@@ -212,7 +223,7 @@ def display_latest_news():
     for i in range(5):
         msg_list.append(link_element[i].get("href"))
 
-    return str(msg_list)
+    return msg_list
 
 if __name__ == "__main__":
 #    app.run()
