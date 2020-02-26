@@ -58,6 +58,8 @@ def handle_message(event):
 
     elif user_message == "自己紹介":
         message = createSelfIntroductionMessage()
+    elif user_message == "最新ニュース":
+        message = display_latest_news()
 
     elif user_message == "さよならbot":
         messages = ["そんな...ひどい", "所詮私はその程度の存在だったのね...!", "うわあああん！"]
@@ -180,7 +182,8 @@ def boketer():
         preview_image_url = image_url
         )
     return message
-
+def display_latest_news():
+    message = "https://news.yahoo.co.jp/pickup/6352292"
 if __name__ == "__main__":
 #    app.run()
     port = int(os.getenv("PORT", 5000))
