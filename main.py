@@ -73,14 +73,18 @@ def handle_message(event):
 # botがグループに参加したときの処理
 @handler.add(JoinEvent)
 def handle_join(event):
+    # 送信するメッセージ
+    message = "招待ありがとう！\nみんな自己紹介してね！"
+
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="私はbotである．")
+        TextSendMessage(text=message)
     )
 
 # 新しくユーザが参加したときの処理
 @handler.add(MemberJoinedEvent)
 def handle_member_join(event):
+    """
     # 新しく入ったメンバーのIDを取得
     new_user_id = event.joined.members.source.userId
     # ユーザのプロフィールを取得
@@ -89,10 +93,11 @@ def handle_member_join(event):
     disp_name = profile.display_name
     # 送るメッセージ
     message = disp_name
+    """
 
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=message)
+        TextSendMessage(text="さあ自己紹介をしろ！")
     )
 
 def createOrder():
