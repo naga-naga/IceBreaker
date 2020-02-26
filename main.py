@@ -102,18 +102,14 @@ def handle_join(event):
 def handle_member_join(event):
     # TODO: 参加メンバーの名前を取得したい
 
-    """
     # 新しく入ったメンバーのIDを取得
-    new_user_id = event.joined.members[0].userId
+    new_user_id = event.joined.members[0].user_id
     # ユーザのプロフィールを取得
     profile = line_bot_api.get_profile(new_user_id)
     # ディスプレイネーム取得
     disp_name = profile.display_name
     # 送るメッセージ
     message = "あなたの名前は" + disp_name + "ですね？"
-    """
-
-    message = str(event.joined.members[0].user_id)
 
     line_bot_api.reply_message(
         event.reply_token,
