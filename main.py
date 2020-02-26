@@ -48,11 +48,6 @@ def handle_message(event):
 
     # ユーザが入力したメッセージ
     user_message = event.message.text
-
-    """
-    if not event.source.user_id in user_list:
-        user_list.append(event.source.user_id)
-    """
     
     if not event.source.user_id in name_dict.keys():
         name_dict[event.source.user_id] = line_bot_api.get_profile(event.source.user_id).display_name
@@ -116,9 +111,9 @@ def handle_message(event):
         id_list = list(name_dict.keys())
         message = ""
         for i in range(len(id_list)):
-            #message += event.source.display_name
+            message += line_bot_api.get_profile(id_list[i]).display_name
             message += " : "
-            message += name_dict[i]
+            message += name_dict[id_list[i]]
             if i == len(id_list) - 1:
                 pass
             else:
