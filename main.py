@@ -146,7 +146,7 @@ def handle_message(event):
         message = getNickname()
     
     # コマンドのヘルプを表示
-    elif user_message == ("help" or "ヘルプ"):
+    elif user_message == "help" or user_message == "ヘルプ":
         # なんか気持ち悪い．もっといい書き方無いかな
         message = """「話題」：話題を生成します．
 「自己紹介」：自己紹介で喋る内容を提案します．
