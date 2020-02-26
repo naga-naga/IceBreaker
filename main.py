@@ -79,15 +79,6 @@ def handle_message(event):
             message
         )
         return
-
-
-    elif user_message == "image":
-        message = imager()
-        line_bot_api.reply_message(
-            event.reply_token,
-            message
-        )
-        return
     
     line_bot_api.reply_message(
             event.reply_token,
@@ -180,14 +171,6 @@ def createSelfIntroductionMessage():
 # boketeの画像を送信
 def boketer():
     image_url = "https://icebreaker2020.herokuapp.com/static/images/no" + str(random.randint(1,12)) + ".jpg"
-    message = ImageSendMessage(
-        original_content_url = image_url,
-        preview_image_url = image_url
-        )
-    return message
-
-def imager():
-    image_url = "https://icebreaker2020.herokuapp.com/static/images/no1.jpg"
     message = ImageSendMessage(
         original_content_url = image_url,
         preview_image_url = image_url
