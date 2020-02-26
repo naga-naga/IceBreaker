@@ -130,11 +130,9 @@ def handle_member_join(event):
 # 順番を作る
 def createOrder():
     message = ""
-    id_list = []
-    for k in name_dict.keys():
-        id_list = k
-    #random.shuffle(id_list)
-    return str(id_list)
+    id_list = list(name_dict.keys())
+    random.shuffle(id_list)
+    #return str(id_list)
 
     for i in range(len(id_list)):
         message += name_dict[id_list[i]]
