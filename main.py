@@ -130,14 +130,13 @@ def handle_member_join(event):
 # 順番を作る
 def createOrder():
     message = ""
-    #random.shuffle(user_list)
-    id_list = name_dict.keys()
+    id_list = []
+    for k in name_dict.keys():
+        id_list = k
     random.shuffle(id_list)
     return str(id_list[0])
 
     for i in range(len(id_list)):
-        #profile = line_bot_api.get_profile(id)
-        #message += profile.display_name
         message += name_dict[id_list[i]]
         message += ' : ' + str(i + 1)
         if i == len(id_list) - 1:
