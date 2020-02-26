@@ -41,6 +41,13 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    # グループ参加時のメッセージ
+    join_message = """招待ありがとう！
+    まずはみんなの自己紹介だ！"""
+
+    # グループ参加時にしゃべる
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=join_message))
+
     if event.message.text == "番号":
         profile = line_bot_api.get_profile(event.source.user_id)
         message = profile.display_name
