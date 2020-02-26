@@ -44,9 +44,6 @@ num_list = [0]  # 割り当てた番号
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 
-    # 送信するメッセージ
-    message = ""
-
     # ユーザが入力したメッセージ
     user_message = event.message.text
 
@@ -55,12 +52,10 @@ def handle_message(event):
     
     if user_message == "順番":
         message = createOrder()
-        
+
     elif user_message == "話題":
-        #message = event.message.text
-        #profile = line_bot_api.get_profile(event.source.user_id)
-        #message = profile.display_name
         message = createRandomMessage() # bot が話題を生成する
+
     elif user_message == "自己紹介":
         message = createSelfIntroductionMessage()
     
@@ -71,16 +66,16 @@ def handle_message(event):
 def createOrder():
     message = ""
     random.shuffle(user_list)
-        num = 0
-        for id in user_list:
-            num += 1
-            profile = line_bot_api.get_profile(id)
-            message += profile.display_name
-            message += ' : ' + str(num)
-            if num == len(user_list):
-                pass
-            else:
-                message += "\n"
+    num = 0
+    for id in user_list:
+        num += 1
+        profile = line_bot_api.get_profile(id)
+        message += profile.display_name
+        message += ' : ' + str(num)
+        if num == len(user_list):
+            pass
+        else:
+            message += "\n"
 
 # 話題を作成
 def createRandomMessage():
