@@ -78,6 +78,7 @@ def handle_message(event):
             event.reply_token,
             message
         )
+        return
 
 
     elif user_message == "image":
@@ -86,6 +87,7 @@ def handle_message(event):
             event.reply_token,
             message
         )
+        return
     
     line_bot_api.reply_message(
             event.reply_token,
@@ -182,6 +184,7 @@ def boketer():
         original_content_url = image_url,
         preview_image_url = image_url
         )
+    return message
 
 def imager():
     image_url = "https://icebreaker2020.herokuapp.com/static/images/no1.jpg"
@@ -189,6 +192,7 @@ def imager():
         original_content_url = image_url,
         preview_image_url = image_url
         )
+    return message
 
 if __name__ == "__main__":
 #    app.run()
