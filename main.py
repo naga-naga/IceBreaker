@@ -81,10 +81,18 @@ def handle_join(event):
 # 新しくユーザが参加したときの処理
 @handler.add(MemberJoinedEvent)
 def handle_member_join(event):
-    # new_user_id = event.joined.members
+    # 新しく入ったメンバーのIDを取得
+    new_user_id = event.joined.members.userId
+    # ユーザのプロフィールを取得
+    profile = line_bot_api.get_profile(new_user_id)
+    # ディスプレイネーム取得
+    disp_name = profile.display_name
+    # 送るメッセージ
+    message = disp_name + "！\nオメーも自己紹介するんだよ！\nほら！早く！"
+
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="オメーも自己紹介するんだよ！\nほら！早く！")
+        TextSendMessage(text=message)
     )
 
 def createOrder():
