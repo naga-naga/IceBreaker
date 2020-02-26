@@ -123,6 +123,14 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=message))
 
+# ユーザが画像を送信したときの処理
+@handler.add(MessageEvent)
+def handle_image_message(event):
+    # テキストメッセージを送信
+    line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="もしかして画像送信した？"))
+
 # botがグループに参加したときの処理
 @handler.add(JoinEvent)
 def handle_join(event):
