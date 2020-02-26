@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0d42ad3546e4fd92afb0304efdb0c42a0540c711f95ff1276ad61e7995ff2d18"
+            "sha256": "0820046513870b73814f70bd2a06df340699d93c41257a373d3ecc3e04b152f9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,15 @@
         ]
     },
     "default": {
+        "beautifulsoup4": {
+            "hashes": [
+                "sha256:05fd825eb01c290877657a56df4c6e4c311b3965bda790c613a3d6fb01a5462a",
+                "sha256:9fbb4d6e48ecd30bcacc5b63b94088192dcda178513b2ae3c394229f8911b887",
+                "sha256:e1505eeed31b0f4ce2dbb3bc8eb256c04cc2b3b72af7d551a4ab6efd5cbe5dae"
+            ],
+            "index": "pypi",
+            "version": "==4.8.2"
+        },
         "certifi": {
             "hashes": [
                 "sha256:017c25db2a153ce562900032d5bc68e9f191e44e9a0f762f373977de9df1fbb3",
@@ -74,11 +83,11 @@
         },
         "line-bot-sdk": {
             "hashes": [
-                "sha256:12d0d4ff7d049a131f551424df948d3372bb362f53ea251afc2110b3217f92ef",
-                "sha256:950ef0e7be624c464be50d1d4570b07d0e8cbe83a7e4a51247964d0c53aaba12"
+                "sha256:3f665300d38e66c06446095e529dcb3415cd448d17ecadd8535428c79ca0a912",
+                "sha256:5779bdcd807137ab31e03a448d2639b21e3b372ceb6e6ed3d6cc7257e952b7f0"
             ],
             "index": "pypi",
-            "version": "==1.15.0"
+            "version": "==1.16.0"
         },
         "markupsafe": {
             "hashes": [
@@ -123,7 +132,15 @@
                 "sha256:43999036bfa82904b6af1d99e4882b560e5e2c68e5c4b0aa03b655f3d7d73fee",
                 "sha256:b3f43d496c6daba4493e7c431722aeb7dbc6288f52a6e04e7b6023b0247817e6"
             ],
+            "index": "pypi",
             "version": "==2.23.0"
+        },
+        "soupsieve": {
+            "hashes": [
+                "sha256:e914534802d7ffd233242b785229d5ba0766a7f487385e3f714446a07bf540ae",
+                "sha256:fcd71e08c0aee99aca1b73f45478549ee7e7fc006d51b37bec9e9def7dc22b69"
+            ],
+            "version": "==2.0"
         },
         "urllib3": {
             "hashes": [

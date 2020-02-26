@@ -12,6 +12,7 @@ from linebot.models import (
 )
 import os
 import random
+import bs4, requests
 
 app = Flask(__name__)
 
@@ -195,7 +196,17 @@ def boketer():
 
 # 最近のニュースの URL を返す
 def display_latest_news():
-    message = "https://news.yahoo.co.jp/pickup/6352292"
+    # ヤフーのタイムラインニュースから取ってくる
+    result = requests.get("https://search.yahoo.co.jp/realtime")
+    # 接続確認
+    result.raise_for_status()
+    # HTML で扱えるようにする？
+    soup = bs4.BeautifulSoup(result.text)
+    # リンクの要素
+    link_element = soup.select(".que_3 > a")
+    # URL を返す
+    message = link_element[0].get("href")
+    #message = "https://news.yahoo.co.jp/pickup/6352292"
     return message
 
 if __name__ == "__main__":

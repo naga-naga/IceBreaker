@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 flask = "*"
 line-bot-sdk = "*"
+beautifulsoup4 = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
