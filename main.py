@@ -99,6 +99,19 @@ def handle_message(event):
         name_dict[event.source.user_id] = name
         # メッセージ作成
         message = "はい，{}さん".format(name)
+
+    #あだ名リストを表示
+    elif user_message == "あだ名":
+        id_list = list(name_dict.keys())
+        for i in range(len(id_list)):
+            message += id_list[i] 
+            message += " : "
+            message += name_dict[name_dict[i]]
+            if i == len(id_list) - 1:
+                pass
+            else:
+                message += "\n"
+        return message
     
     line_bot_api.reply_message(
             event.reply_token,
