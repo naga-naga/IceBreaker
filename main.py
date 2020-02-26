@@ -67,7 +67,7 @@ def handle_message(event):
         msg_list.append(name_dict[silence] + "さんの好きな食べ物はなんですか?")
 
         for message in msg_list:
-            send_messages = TextSendMessage(text=message)
+            send_messages.append(TextSendMessage(text=message))
 
         count_num = 0
         line_bot_api.reply_message(
