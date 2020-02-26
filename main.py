@@ -197,16 +197,15 @@ def boketer():
 # 最近のニュースの URL を返す
 def display_latest_news():
     # ヤフーのタイムラインニュースから取ってくる
-    result = requests.get("https://search.yahoo.co.jp/realtime")
+    result = requests.get("https://www.google.com/search?q=ニュース")
     # 接続確認
     result.raise_for_status()
     # HTML で扱えるようにする？
     soup = bs4.BeautifulSoup(result.text, "html.parser")
     # リンクの要素 一つだけ返す メモ：.que_3 > 
-    link_element = soup.select_one("a")
+    link_element = soup.select(".kCrYT > a")
     # URL を返す
-    #message = link_element[0].get("href")
-    message = result.text[1000:3000]
+    message = "https://google.com/" + link_element[0].get("href")
     return message
 
 if __name__ == "__main__":
