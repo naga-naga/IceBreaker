@@ -197,40 +197,22 @@ def boketer():
 
 # 最近のニュースの URL を返す
 def display_latest_news():
-    """
-    # ヤフーのタイムラインニュースから取ってくる
-    result = requests.get("https://www.google.com/search?q=ニュース")
+    # 返す URL のリスト
+    msg_list = []
+
+    # ヤフーニュースから取ってくる
+    result = requests.get("https://news.yahoo.co.jp/")
     # 接続確認
     result.raise_for_status()
     # HTML で扱えるようにする？
     soup = bs4.BeautifulSoup(result.text, "html.parser")
-    # リンクの要素 一つだけ返す メモ：.que_3 > 
-    link_element = soup.select(".kCrYT > a")
+    # リンクの要素 一つだけ返す
+    link_element = soup.select(".topicsListItem > a")
     # URL を返す
-    message = "https://google.com/" + link_element[0].get("href")
-    return message
-    """
+    for i in range(5):
+        msg_list.append(link_element[i].get("href"))
 
-    url = "https://search.yahoo.co.jp/realtime"
-
-    # セッション開始
-    session = HTMLSession()
-    result = session.get(url)
-
-    # ブラウザエンジンで HTML を生成させる
-    result.html.render()
-
-    # スクレイピング
-    # 最上段の行を取得
-    ranking_rows = result.html.find("div.lst.cf")
-    ranking_list = []
-    # 1位から5位を見る
-    if ranking_rows:
-        ranking_top5 = ranking_rows[0].find("p.que_3 > a")
-        for item in ranking_top5:
-            ranking_list.append(list(item.absolute_links)[0])
-    
-    return ranking_list[0]
+    return str(msg_list)
 
 if __name__ == "__main__":
 #    app.run()
