@@ -191,8 +191,11 @@ def boketer():
         preview_image_url = image_url
         )
     return message
+
+# 最近のニュースの URL を返す
 def display_latest_news():
     message = "https://news.yahoo.co.jp/pickup/6352292"
+
 if __name__ == "__main__":
 #    app.run()
     port = int(os.getenv("PORT", 5000))
