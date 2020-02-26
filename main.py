@@ -137,9 +137,8 @@ def handle_message(event):
     elif user_message == "あだ名":
         message = getNickname()
     
-
-    if event.message.type == "image":
-        message = "てすと：画像を送ったね？"
+    elif user_message == "URLテスト":
+        message = os.listdir(".")
 
     # テキストメッセージを送信
     line_bot_api.reply_message(
@@ -152,6 +151,9 @@ def handle_message(event):
 def handle_image_message(event):
     message_id = event.message.id
     image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
+
+    # ディレクトリが存在しなければ作成
+    os.makedirs(os.path.join("static", "userSendImages"), exist_ok=True)
 
     # 画像のバイナリデータを取得
     message_content = line_bot_api.get_message_content(message_id)
