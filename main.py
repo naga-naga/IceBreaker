@@ -168,13 +168,6 @@ def handle_image_message(event):
                 preview_image_url = image_url
             ))
 
-    """
-    # メッセージIDを返してみる
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=message_content)
-    )"""
-
 
 # ユーザがスタンプを送信したときの処理
 @handler.add(MessageEvent, message=StickerMessage)
