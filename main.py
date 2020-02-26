@@ -139,7 +139,7 @@ def handle_message(event):
         message = getNickname()
     
     elif user_message == "URLテスト":
-        message = str(os.listdir("."))
+        message = str(os.listdir(os.path.join(".", "static")))
 
     # テキストメッセージを送信
     line_bot_api.reply_message(
@@ -152,7 +152,7 @@ def handle_message(event):
 def handle_image_message(event):
     message_id = event.message.id
     #image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
-    image_url = Path("static/userSendImages/{}.jpg".format(message_id).absolute())
+    image_url = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
 
     # ディレクトリが存在しなければ作成
     os.makedirs(os.path.join("static", "userSendImages"), exist_ok=True)
