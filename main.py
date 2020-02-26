@@ -62,7 +62,6 @@ def handle_message(event):
     # 会話に入ってない人に話しかける
     if count_num >= 30:
         silence = min(say_counter_dict)
-        msg_list.append("@{}".format(name_dict[silence]))
         msg_list.append("オタクくんさぁ...ゲームばっかやってないで会話に参加しようよ!")
         msg_list.append(name_dict[silence] + "さんの好きな食べ物はなんですか?")
 
@@ -147,7 +146,7 @@ def handle_message(event):
         message = getNickname()
     
     # コマンドのヘルプを表示
-    elif user_message == "help":
+    elif user_message == "help" or "ヘルプ":
         # なんか気持ち悪い．もっといい書き方無いかな
         message = """「話題」：話題を生成します．
 「自己紹介」：自己紹介で喋る内容を提案します．
