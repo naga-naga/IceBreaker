@@ -113,7 +113,7 @@ def handle_member_join(event):
     message = "あなたの名前は" + disp_name + "ですね？"
     """
 
-    message = "タイムスタンプ：" + event.source.groupId
+    message = str(event.joined.members[0])
 
     line_bot_api.reply_message(
         event.reply_token,
