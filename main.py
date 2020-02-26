@@ -201,12 +201,11 @@ def display_latest_news():
     # 接続確認
     result.raise_for_status()
     # HTML で扱えるようにする？
-    soup = bs4.BeautifulSoup(result.text)
-    # リンクの要素
-    link_element = soup.select(".que_3 > a")
+    soup = bs4.BeautifulSoup(result.text, "html.parser")
+    # リンクの要素 一つだけ返す
+    link_element = soup.select_one(".que_3 > a")
     # URL を返す
-    #message = link_element[0].get("href")
-    message = result.text[:20]
+    message = link_element[0].get("href")
     return message
 
 if __name__ == "__main__":
