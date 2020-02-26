@@ -114,7 +114,7 @@ def handle_message(event):
         message = "はい，{}さん".format(name)
 
     elif user_message == "bot":
-        message = stamper()
+        message = stamper(event)
         return
     
     # あだ名の一覧を表示
@@ -235,34 +235,28 @@ def display_latest_news():
 
     return str(msg_list)
 
-
-def stamper():
+# スタンプを送信
+def stamper(event):
     randnum = random.randint(1,100)
 
     if randnum == 1:
-        message = "激レアスタンプ!"
-        stamp_messages = StickerSendMessage(
+        msg_list = []
+        msg_list.append(TextSendMessage(text="激レアスタンプ！"))
+        msg_list.append(StickerSendMessage(
             package_id = 1,
             sticker_id = 2
-        )
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=message)
-        )
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            stamp_messages
-        )
+        ))
     else:
-        send_messages = StickerSendMessage(
+        msg_list = []
+        msg_list.append(StickerSendMessage(
             package_id = 1,
             sticker_id = 1
-        )
-        line_bot_api.reply_message(
-            event.reply_token,
-            send_messages
-        )    
+        ))
+    
+    line_bot_api.reply_message(
+        event.reply_token,
+        msg_list
+    )
 
     return
 
