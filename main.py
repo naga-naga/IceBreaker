@@ -169,10 +169,10 @@ def createSelfIntroductionMessage():
 
 # boketeの画像を送信
 def boketer():
-    image_message = "https://icebreaker2020.herokuapp.com/static/images/no" + str(random.randint(1,12)) + ".jpg",
+    image_url = "https://icebreaker2020.herokuapp.com/static/images/no" + str(random.randint(1,12)) + ".jpg"
     message = ImageSendMessage(
-        original_content_url = image_message,
-        preview_image_url = image_message
+        original_content_url = image_url,
+        preview_image_url = image_url
         )
 
 if __name__ == "__main__":
