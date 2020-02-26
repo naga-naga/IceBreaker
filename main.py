@@ -1,4 +1,5 @@
 from flask import Flask, request, abort
+import random
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -40,13 +41,24 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    #message = event.message.text
-    #profile = line_bot_api.get_profile(event.source.user_id)
-    #message = profile.display_name
-    message = createMessage()
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=message))
+    if event.message.text == "番号":
+        profile = line_bot_api.get_profile(event.source.user_id)
+        message = profile.display_name
+        num = random.randint(0,10)
+        message += message + ' : ' + str(num)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=message)
+        )        
+    else:
+        #message = event.message.text
+        #profile = line_bot_api.get_profile(event.source.user_id)
+        #message = profile.display_name
+        message = createMessage()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=message))
+
 
 # 送信するメッセージを作成
 def createMessage():
@@ -67,7 +79,6 @@ def createMessage():
     message = "{}の{}の{}話".format(who[random.randint(0, len(who) - 1)], when[random.randint(0, len(when) - 1)], what[random.randint(0, len(what) - 1)])
 
     return message
-
 
 if __name__ == "__main__":
 #    app.run()
