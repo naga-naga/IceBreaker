@@ -102,16 +102,15 @@ def handle_join(event):
 @handler.add(MemberJoinedEvent)
 def handle_member_join(event):
     # TODO: 参加メンバーの名前を取得したい
-    """
+
     # 新しく入ったメンバーのIDを取得
-    new_user_id = event.joined.members.source.userId
+    new_user_id = event.joined.members[0].userId
     # ユーザのプロフィールを取得
     profile = line_bot_api.get_profile(new_user_id)
     # ディスプレイネーム取得
     disp_name = profile.display_name
     # 送るメッセージ
     message = disp_name
-    """
 
     line_bot_api.reply_message(
         event.reply_token,
