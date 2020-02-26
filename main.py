@@ -205,7 +205,8 @@ def display_latest_news():
     # リンクの要素 一つだけ返す メモ：.que_3 > 
     link_element = soup.select_one("a")
     # URL を返す
-    message = link_element[0].get("href")
+    #message = link_element[0].get("href")
+    message = result.text[:130]
     return message
 
 if __name__ == "__main__":
