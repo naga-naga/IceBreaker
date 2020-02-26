@@ -48,16 +48,15 @@ def handle_message(event):
 
     if not event.source.user_id in user_list:
         user_list.append(event.source.user_id)
-    if event.message.text == "順番":
+    
+    if user_message == "順番":
         random.shuffle(user_list)
+        num = 0
         for id in user_list:
+            num += 1
             profile = line_bot_api.get_profile(id)
             message = profile.display_name
-            message += ' : ' + str(num) 
-
-            line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=message))
+            message += ' : ' + str(num) + "\n"
         
     elif user_message == "話題":
         #message = event.message.text
