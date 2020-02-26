@@ -133,7 +133,7 @@ def createOrder():
     id_list = []
     for k in name_dict.keys():
         id_list = k
-    random.shuffle(id_list)
+    #random.shuffle(id_list)
     return str(id_list[0])
 
     for i in range(len(id_list)):
