@@ -13,6 +13,7 @@ from linebot.models import (
 import os
 import random
 import bs4, requests
+from pathlib import Path
 
 app = Flask(__name__)
 
@@ -138,7 +139,7 @@ def handle_message(event):
         message = getNickname()
     
     elif user_message == "URLテスト":
-        message = os.listdir(".")
+        message = str(os.listdir("."))
 
     # テキストメッセージを送信
     line_bot_api.reply_message(
@@ -150,7 +151,8 @@ def handle_message(event):
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
     message_id = event.message.id
-    image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
+    #image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
+    image_url = Path("static/userSendImages/{}.jpg".format(message_id).absolute())
 
     # ディレクトリが存在しなければ作成
     os.makedirs(os.path.join("static", "userSendImages"), exist_ok=True)
