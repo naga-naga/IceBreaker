@@ -64,7 +64,7 @@ def createMessage():
 
     # メッセージ作成
     # 誰のいつのどんな話
-    message = "{}の{}の{}話".format(who[random.randint(0, len(who))], when[random.randint(0, len(when))], what[random.randint(0, len(what))])
+    message = "{}の{}の{}話".format(who[random.randint(0, len(who) - 1)], when[random.randint(0, len(when) - 1)], what[random.randint(0, len(what) - 1)])
 
     return message
 
