@@ -167,6 +167,7 @@ def handle_image_message(event):
                 original_content_url = image_url,
                 preview_image_url = image_url
             ))
+
     """
     # メッセージIDを返してみる
     line_bot_api.reply_message(
