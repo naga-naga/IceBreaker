@@ -14,7 +14,7 @@ import os
 import random
 import bs4, requests
 from pathlib import Path
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageDraw
 
 app = Flask(__name__)
 
@@ -184,15 +184,20 @@ def handle_image_message(event):
     print(path_to_image)
     print(image_url)
     im = Image.open("static/userSendImages/{}.jpg".format(message_id))
+    draw = ImageDraw.Draw(im)
+    draw.text((20, 40), "Test", fill="red")
+    im.save("after.jpg")
     print(im.format, im.size)
     print("Image.open後")
+
+    after_image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/after.jpg"
 
     # 画像をそのまま返す
     line_bot_api.reply_message(
             event.reply_token,
             ImageSendMessage(
-                original_content_url = image_url,
-                preview_image_url = image_url
+                original_content_url = after_image_url,
+                preview_image_url = after_image_url
             ))
 
 
@@ -357,9 +362,6 @@ def getNickname():
 
 # 画像を保存する
 def saveImage(message_id, path_to_image):
-    print("saveImage")
-    print("messageID = " + str(message_id))
-    print("path_to_image = " + str(path_to_image))
     # ディレクトリが存在しなければ作成
     os.makedirs(os.path.join("static", "userSendImages"), exist_ok=True)
 
@@ -369,7 +371,6 @@ def saveImage(message_id, path_to_image):
         # バイナリを1024バイトずつ書き込む
         for chunk in message_content.iter_content():
             f.write(chunk)
-    print("end saveImage")
 
 if __name__ == "__main__":
 #    app.run()
