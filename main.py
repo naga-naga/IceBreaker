@@ -157,6 +157,9 @@ def handle_message(event):
 「あだ名」：登録したあだ名の一覧を表示します．
 「さよならbot」：botを退会させます．"""
 
+    elif user_message == "年齢は？":
+        message = "禁則事項です"
+
 
     # テキストメッセージを送信
     line_bot_api.reply_message(
