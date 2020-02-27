@@ -173,30 +173,12 @@ def handle_message(event):
 def handle_image_message(event):
     # メッセージのID
     message_id = event.message.id
-    # 画像ファイルの URL
-    image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
-    # 画像ファイルの絶対パス
-    path_to_image = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
-    # 背景画像
-    #bg_image_url = "https://icebreaker2020.herokuapp.com/static/bg_fire_trimed_touka.png"
-    # 背景画像を開く
-    bg_im = Image.open("static/bg_fire_trimed_touka.png")
-
+    
     # ユーザが送信した画像を保存
-    saveImage(message_id, path_to_image)
-    print("Image.open前")
-    # ユーザが送信した写真を開く
-    im = Image.open("static/userSendImages/{}.jpg".format(message_id))
-    # それを縮小
-    im.thumbnail((640, 640))
-    # 重ねる
-    im.paste(bg_im, (0, 0), bg_im)
-    # 保存
-    im.save("static/userSendImages/after{}.jpg".format(message_id))
-    print("Image.open後")
+    saveImage(message_id)
 
-    after_image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/after{}.jpg".format(message_id)
-    #after_image_url = bg_image_url
+    # 返す画像のURLが返ってくる
+    after_image_url = fireImage(message_id)
 
     # 画像を返す
     line_bot_api.reply_message(
@@ -367,7 +349,12 @@ def getNickname():
     return message
 
 # 画像を保存する
-def saveImage(message_id, path_to_image):
+def saveImage(message_id):
+    # 画像ファイルの URL
+    #image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
+    # 画像ファイルの絶対パス
+    path_to_image = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
+
     # ディレクトリが存在しなければ作成
     os.makedirs(os.path.join("static", "userSendImages"), exist_ok=True)
 
@@ -377,6 +364,22 @@ def saveImage(message_id, path_to_image):
         # バイナリを1024バイトずつ書き込む
         for chunk in message_content.iter_content():
             f.write(chunk)
+
+# 画像を加工する
+def fireImage(message_id):
+    # 背景画像を開く
+    bg_im = Image.open("static/bg_fire_trimed_touka.png")
+    # ユーザが送信した写真を開く
+    im = Image.open("static/userSendImages/{}.jpg".format(message_id))
+    # それを縮小
+    im.thumbnail((640, 640))
+    # 重ねる
+    im.paste(bg_im, (0, 0), bg_im)
+    # 保存
+    im.save("static/userSendImages/after{}.jpg".format(message_id))
+    # 返す画像のURL
+    return "https://icebreaker2020.herokuapp.com/static/userSendImages/after{}.jpg".format(message_id)
+
 
 if __name__ == "__main__":
 #    app.run()
