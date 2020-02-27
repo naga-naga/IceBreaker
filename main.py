@@ -317,16 +317,16 @@ def display_latest_news():
 # スタンプを送信
 def stamper(event):
     randnum = random.randint(1,100)
+    msg_list = []
+    msg_list.append("運試しのようなもの\n100分の1で激レアスタンプだ！")
 
     if randnum == 1:
-        msg_list = []
         msg_list.append(TextSendMessage(text="激レアスタンプ！"))
         msg_list.append(StickerSendMessage(
             package_id = 1,
             sticker_id = 2
         ))
     else:
-        msg_list = []
         msg_list.append(StickerSendMessage(
             package_id = 1,
             sticker_id = 1
