@@ -14,7 +14,7 @@ import os
 import random
 import bs4, requests
 from pathlib import Path
-from PIL import Image, ImageFilter, ImageDraw
+from PIL import Image
 
 app = Flask(__name__)
 
@@ -179,20 +179,26 @@ def handle_image_message(event):
     path_to_image = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
     # 背景画像
     bg_image_url = "https://icebreaker2020.herokuapp.com/static/bg_fire_trimed_touka.png"
+    # 背景画像を開く
+    bg_im = Image.open("static/bg_fire_trimed_touka.png")
 
+    # ユーザが送信した画像を保存
     saveImage(message_id, path_to_image)
-
     print("Image.open前")
+    # ユーザが送信した写真を開く
     im = Image.open("static/userSendImages/{}.jpg".format(message_id))
-    draw = ImageDraw.Draw(im)
-    draw.text((20, 40), "Test", fill="red")
+    # それを縮小
+    im.thumbnail((640, 640))
+    # 重ねる
+    im.paste(bg_im, (0, 0))
+    # 保存
     im.save("static/userSendImages/after{}.jpg".format(message_id))
     print("Image.open後")
 
-    #after_image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/after{}.jpg".format(message_id)
-    after_image_url = bg_image_url
+    after_image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/after{}.jpg".format(message_id)
+    #after_image_url = bg_image_url
 
-    # 画像をそのまま返す
+    # 画像を返す
     line_bot_api.reply_message(
             event.reply_token,
             ImageSendMessage(
