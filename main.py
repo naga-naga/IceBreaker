@@ -63,23 +63,25 @@ def handle_message(event):
     # 会話に入ってない人に話しかける
     if count_num >= 30:
         for k, v in say_counter_dict.items():
-            print("k type: " + str(type(k)))
-            print("k: " + str(k))
-            print("v type: " + str(type(v)))
+            # 一番喋っていない人をターゲットにする
             if v == min(say_counter_dict.values()):
                 silence = k
 
-        print("silence: " + str(type(silence)))
-        print("silence: " + str(silence))
         #msg_list.append("オタクくんさぁ...ゲームばっかやってないで会話に参加しようよ!")
         msg_list.append(name_dict[silence] + "さん！あまり喋ってないね？")
         msg_list.append("君も会話に参加しよう！")
         msg_list.append(name_dict[silence] + "さんの好きな食べ物はなんですか?")
 
+        # メッセージの設定
         for message in msg_list:
             send_messages.append(TextSendMessage(text=message))
-
+        
+        # 初期化
+        for k in say_counter_dict.keys():
+            say_counter_dict[k] = 0
+        # 初期化
         count_num = 0
+        # メッセージ送信
         line_bot_api.reply_message(
             event.reply_token,
             send_messages
@@ -166,7 +168,8 @@ def handle_message(event):
 「bokete」：写真を表示します．ボケてください．
 「最新ニュース」：ニュースを5件表示します．
 「あだ名」：登録したあだ名の一覧を表示します．
-「さよならbot」：botを退会させます．"""
+「さよならbot」：botを退会させます．
+画像を送信すると，送信された画像を燃やして返します"""
 
     elif user_message == "年齢は？":
         message = "禁則事項です"
