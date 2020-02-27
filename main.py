@@ -69,6 +69,8 @@ def handle_message(event):
             if v == min(say_counter_dict.values()):
                 silence = say_counter_dict[k]
 
+        print("silence: " + str(type(silence)))
+        print("silence: " + str(silence))
         #msg_list.append("オタクくんさぁ...ゲームばっかやってないで会話に参加しようよ!")
         msg_list.append(name_dict[silence] + "さん！あまり喋ってないね？")
         msg_list.append("君も会話に参加しよう！")
