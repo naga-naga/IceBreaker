@@ -162,7 +162,6 @@ def handle_message(event):
     
     # コマンドのヘルプを表示
     elif user_message == "help" or user_message == "ヘルプ":
-        # なんか気持ち悪い．もっといい書き方無いかな
         message = """かぎかっこの中の言葉を送信すると，botが色々なことをします．
 「話題」：話題を生成します．
 「自己紹介」：自己紹介で喋る内容を提案します．
@@ -172,7 +171,7 @@ def handle_message(event):
 「最新ニュース」：ニュースを5件表示します．
 「あだ名」：登録したあだ名の一覧を表示します．
 「さよならbot」：botを退会させます．
-画像を送信すると，送信された画像を燃やして返します．"""
+画像を送信すると，送信された画像を燃やして返します．画像によってはうまく燃えません．"""
 
     elif user_message == "年齢は？":
         message = "禁則事項です"
@@ -212,7 +211,7 @@ def handle_image_message(event):
 @handler.add(JoinEvent)
 def handle_join(event):
     # 送信するメッセージ
-    message = "招待ありがとう！\nみんな自己紹介してね！\n詳しい使い方を表示するには「help」と入力してください．"
+    message = "招待ありがとう！\nみんな自己紹介してね！\n詳しい使い方を表示するには「help」または「ヘルプ」と入力してください．"
 
     line_bot_api.reply_message(
         event.reply_token,
@@ -310,7 +309,7 @@ def display_latest_news():
     result.raise_for_status()
     # HTML で扱えるようにする？
     soup = bs4.BeautifulSoup(result.text, "html.parser")
-    # リンクの要素 一つだけ返す
+    # リンクの要素
     link_element = soup.select(".topicsListItem > a")
     # URL を返す
     for i in range(5):
@@ -322,7 +321,7 @@ def display_latest_news():
 def stamper(event):
     randnum = random.randint(1,100)
     msg_list = []
-    msg_list.append(TextSendMessage(text="運試しのようなもの\n100分の1で激レアスタンプだ！"))
+    msg_list.append(TextSendMessage(text="運試しのようなもの\n100分の1の確率で激レアスタンプだ！"))
 
     if randnum == 1:
         msg_list.append(TextSendMessage(text="激レアスタンプ！"))
