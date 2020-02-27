@@ -173,11 +173,12 @@ def handle_message(event):
 def handle_image_message(event):
     message_id = event.message.id
     image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
+    path_to_image = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
 
-    im = Image.open("static/userSendImages/{}.jpg".format(message_id))
+    im = Image.open(path_to_image,)
     print(im.format, im.size)
 
-    saveImage(message_id)
+    saveImage(message_id, path_to_image)
 
     # 画像をそのまま返す
     line_bot_api.reply_message(
@@ -348,13 +349,13 @@ def getNickname():
     return message
 
 # 画像を保存する
-def saveImage(message_id):
+def saveImage(message_id, path_to_image):
     # ディレクトリが存在しなければ作成
     os.makedirs(os.path.join("static", "userSendImages"), exist_ok=True)
 
     # 画像のバイナリデータを取得
     message_content = line_bot_api.get_message_content(message_id)
-    with open(Path("static/userSendImages/{}.jpg".format(message_id)).absolute(), "wb") as f:
+    with open(path_to_image, "wb") as f:
         # バイナリを1024バイトずつ書き込む
         for chunk in message_content.iter_content():
             f.write(chunk)
