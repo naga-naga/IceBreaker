@@ -178,7 +178,7 @@ def handle_image_message(event):
     # 画像ファイルの絶対パス
     path_to_image = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
     # 背景画像
-    bg_image_url = "https://icebreaker2020.herokuapp.com/static/bg_fire_trimed_touka.png"
+    #bg_image_url = "https://icebreaker2020.herokuapp.com/static/bg_fire_trimed_touka.png"
     # 背景画像を開く
     bg_im = Image.open("static/bg_fire_trimed_touka.png")
 
@@ -190,9 +190,9 @@ def handle_image_message(event):
     # それを縮小
     im.thumbnail((640, 640))
     # 重ねる
-    im.paste(bg_im, (0, 0))
+    bg_im.paste(im, (0, 0))
     # 保存
-    im.save("static/userSendImages/after{}.jpg".format(message_id))
+    bg_im.save("static/userSendImages/after{}.jpg".format(message_id))
     print("Image.open後")
 
     after_image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/after{}.jpg".format(message_id)
