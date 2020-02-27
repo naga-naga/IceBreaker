@@ -62,7 +62,7 @@ def handle_message(event):
 
     # 会話に入ってない人に話しかける
     if count_num >= 30:
-        for k, v in say_counter_dict:
+        for k, v in say_counter_dict.items():
             if v == min(say_counter_dict.values()):
                 silence = say_counter_dict[k]
 
