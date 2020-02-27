@@ -179,7 +179,7 @@ def handle_image_message(event):
     path_to_image = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
 
     print(path_to_image)
-    im = Image.open(path_to_image)
+    im = Image.open(image_url)
     print(im.format, im.size)
 
     saveImage(message_id, path_to_image)
