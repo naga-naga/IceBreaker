@@ -181,12 +181,13 @@ def handle_image_message(event):
     saveImage(message_id, path_to_image)
 
     print("Image.open前")
-    print(path_to_image)
-    print(image_url)
+    print("PtoImg: " + path_to_image)
+    print("Img_URL: " +image_url)
+    print("msgID: ")
     im = Image.open("static/userSendImages/{}.jpg".format(message_id))
     draw = ImageDraw.Draw(im)
     draw.text((20, 40), "Test", fill="red")
-    im.save("after.jpg")
+    im.save("static/userSendImages/after.jpg")
     print(im.format, im.size)
     print("Image.open後")
 
