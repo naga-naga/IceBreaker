@@ -176,6 +176,9 @@ def handle_message(event):
 
     elif user_message == "年齢は？":
         message = "禁則事項です"
+    
+    elif user_message == "体重は？":
+        message = "ひ・み・つ"
 
 
     # テキストメッセージを送信
@@ -319,7 +322,7 @@ def display_latest_news():
 def stamper(event):
     randnum = random.randint(1,100)
     msg_list = []
-    msg_list.append("運試しのようなもの\n100分の1で激レアスタンプだ！")
+    msg_list.append(TextSendMessage(text="運試しのようなもの\n100分の1で激レアスタンプだ！"))
 
     if randnum == 1:
         msg_list.append(TextSendMessage(text="激レアスタンプ！"))
