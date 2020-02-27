@@ -171,11 +171,14 @@ def handle_message(event):
 # ユーザが画像を送信したときの処理
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
+    # メッセージのID
     message_id = event.message.id
+    # 画像ファイルの URL
     image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
+    # 画像ファイルの絶対パス
     path_to_image = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
 
-    im = Image.open(path_to_image,)
+    im = Image.open(path_to_image)
     print(im.format, im.size)
 
     saveImage(message_id, path_to_image)
