@@ -330,11 +330,13 @@ def stamper(event):
             package_id = 1,
             sticker_id = 2
         ))
+        msg_list.append(TextSendMessage(text="はずれ"))
     else:
         msg_list.append(StickerSendMessage(
             package_id = 1,
             sticker_id = 1
         ))
+        msg_list.append(TextSendMessage(text="おめでとう！"))
     
     line_bot_api.reply_message(
         event.reply_token,
