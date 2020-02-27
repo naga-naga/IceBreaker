@@ -178,8 +178,8 @@ def handle_image_message(event):
     # 画像ファイルの絶対パス
     path_to_image = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
 
-    im = Image.open(path_to_image)
-    print(im.format, im.size)
+    #im = Image.open(path_to_image)
+    #print(im.format, im.size)
 
     saveImage(message_id, path_to_image)
 
