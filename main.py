@@ -183,7 +183,7 @@ def handle_image_message(event):
     print("Image.open前")
     print(path_to_image)
     print(image_url)
-    im = Image.open(image_url)
+    im = Image.open("static/userSendImages/{}.jpg".format(message_id))
     print(im.format, im.size)
     print("Image.open後")
 
