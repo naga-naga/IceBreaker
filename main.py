@@ -62,10 +62,11 @@ def handle_message(event):
 
     # 会話に入ってない人に話しかける
     if count_num >= 30:
-        silence = min(say_counter_dict)
+        silence = min(say_counter_dict.values())
         #msg_list.append("オタクくんさぁ...ゲームばっかやってないで会話に参加しようよ!")
-        msg_list.append(name_dict[silence] + "さぁ～ん！生きてますかぁ～？")
-        msg_list.append(name_dict[silence] + "さんの好きな食べ物はなんですかぁ～?")
+        msg_list.append(name_dict[silence] + "さん！あまり喋ってないね？")
+        msg_list.append("君も会話に参加しよう！")
+        msg_list.append(name_dict[silence] + "さんの好きな食べ物はなんですか?")
 
         for message in msg_list:
             send_messages.append(TextSendMessage(text=message))
