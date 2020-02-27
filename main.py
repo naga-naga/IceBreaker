@@ -190,9 +190,9 @@ def handle_image_message(event):
     # それを縮小
     im.thumbnail((640, 640))
     # 重ねる
-    bg_im.paste(im, (0, 0))
+    im.paste(bg_im, (0, 0), bg_im)
     # 保存
-    bg_im.save("static/userSendImages/after{}.jpg".format(message_id))
+    im.save("static/userSendImages/after{}.jpg".format(message_id))
     print("Image.open後")
 
     after_image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/after{}.jpg".format(message_id)
