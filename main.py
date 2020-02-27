@@ -169,7 +169,7 @@ def handle_message(event):
 「最新ニュース」：ニュースを5件表示します．
 「あだ名」：登録したあだ名の一覧を表示します．
 「さよならbot」：botを退会させます．
-画像を送信すると，送信された画像を燃やして返します"""
+画像を送信すると，送信された画像を燃やして返します．"""
 
     elif user_message == "年齢は？":
         message = "禁則事項です"
@@ -200,15 +200,6 @@ def handle_image_message(event):
                 original_content_url = after_image_url,
                 preview_image_url = after_image_url
             ))
-
-
-# ユーザがスタンプを送信したときの処理
-@handler.add(MessageEvent, message=StickerMessage)
-def handle_sticker_message(event):
-    # テキストメッセージを送信
-    line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text="もしかしてスタンプ送信した？"))
 
 
 # botがグループに参加したときの処理
