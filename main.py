@@ -170,17 +170,6 @@ def handle_image_message(event):
     message_id = event.message.id
     image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
 
-    """
-    # ディレクトリが存在しなければ作成
-    os.makedirs(os.path.join("static", "userSendImages"), exist_ok=True)
-
-    # 画像のバイナリデータを取得
-    message_content = line_bot_api.get_message_content(message_id)
-    with open(Path("static/userSendImages/{}.jpg".format(message_id)).absolute(), "wb") as f:
-        # バイナリを1024バイトずつ書き込む
-        for chunk in message_content.iter_content():
-            f.write(chunk)
-    """
     saveImage(message_id)
 
     # 画像をそのまま返す
