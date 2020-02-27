@@ -67,7 +67,7 @@ def handle_message(event):
             print("k: " + str(k))
             print("v type: " + str(type(v)))
             if v == min(say_counter_dict.values()):
-                silence = say_counter_dict[k]
+                silence = k
 
         print("silence: " + str(type(silence)))
         print("silence: " + str(silence))
