@@ -350,8 +350,6 @@ def getNickname():
 
 # 画像を保存する
 def saveImage(message_id):
-    # 画像ファイルの URL
-    #image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
     # 画像ファイルの絶対パス
     path_to_image = Path("static/userSendImages/{}.jpg".format(message_id)).absolute()
 
