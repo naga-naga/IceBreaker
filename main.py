@@ -188,11 +188,11 @@ def handle_image_message(event):
     im = Image.open("static/userSendImages/{}.jpg".format(message_id))
     draw = ImageDraw.Draw(im)
     draw.text((20, 40), "Test", fill="red")
-    im.save("static/userSendImages/after.jpg")
+    im.save("static/userSendImages/after{}.jpg".format(message_id))
     print(im.format, im.size)
     print("Image.open後")
 
-    after_image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/after.jpg"
+    after_image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/after{}.jpg".format(message_id)
 
     # 画像をそのまま返す
     line_bot_api.reply_message(
