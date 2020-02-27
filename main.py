@@ -57,6 +57,8 @@ def handle_message(event):
     msg_list = []
     send_messages = []
 
+    to_silece_person = ["好きな食べ物は何ですか？", "今日の体調はいかがですか？", "好きな野菜は何ですか？", "好きなフルーツは何ですか？"]
+
     global count_num
     count_num += 1
 
@@ -70,7 +72,7 @@ def handle_message(event):
         #msg_list.append("オタクくんさぁ...ゲームばっかやってないで会話に参加しようよ!")
         msg_list.append(name_dict[silence] + "さん！あまり喋ってないね？")
         msg_list.append("君も会話に参加しよう！")
-        msg_list.append(name_dict[silence] + "さんの好きな食べ物はなんですか?")
+        msg_list.append(name_dict[silence] + "さん，" + to_silece_person[random.randint(0, len(to_silece_person) - 1)])
 
         # メッセージの設定
         for message in msg_list:
