@@ -173,7 +173,7 @@ def handle_message(event):
 def handle_image_message(event):
     # メッセージのID
     message_id = event.message.id
-    print("message_ID: " + src(message_id))
+    print("message_ID: " + str(message_id))
     # 画像ファイルの URL
     image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
     # 画像ファイルの絶対パス
