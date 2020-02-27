@@ -14,6 +14,7 @@ import os
 import random
 import bs4, requests
 from pathlib import Path
+from PIL import Image, ImageFilter
 
 app = Flask(__name__)
 
@@ -172,6 +173,9 @@ def handle_message(event):
 def handle_image_message(event):
     message_id = event.message.id
     image_url = "https://icebreaker2020.herokuapp.com/static/userSendImages/{}.jpg".format(message_id)
+
+    im = Image.open("static/userSendImages/{}.jpg".format(message_id))
+    print(im.format, im.size)
 
     saveImage(message_id)
 
