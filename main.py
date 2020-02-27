@@ -180,10 +180,12 @@ def handle_image_message(event):
 
     saveImage(message_id, path_to_image)
 
+    print("Image.open前")
     print(path_to_image)
     print(image_url)
-    #im = Image.open(image_url)
-    #print(im.format, im.size)
+    im = Image.open(image_url)
+    print(im.format, im.size)
+    print("Image.open後")
 
     # 画像をそのまま返す
     line_bot_api.reply_message(
